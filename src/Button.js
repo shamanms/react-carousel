@@ -1,10 +1,10 @@
 import React from 'react';
 
-export class Button extends React.Component {
+class Button extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      
+      names: ['deafult']
     };
   }
 
@@ -25,9 +25,20 @@ export class Button extends React.Component {
         response.json()
         .then(data => {
           console.log(data);
-          this.setState({
-            data
+          let names = [];
+          data.forEach((element) => {
+
+            names.push(element.name);
+            console.log(names)
+            console.log(element.name)
+            
           });
+          this.setState({
+            names
+          });
+          // this.setState({
+          //   data
+          // });
           console.log(this.state);
         });
       }
@@ -41,13 +52,11 @@ export class Button extends React.Component {
     
 
     return (
-      
-      this.state.data.map((key) => (
-        <button className="btn" key={key}>{key}</button>
-      ))
-
-      // <button className="btn">1</button>
-
+        this.state.names.map((key) => (
+          <button className="btn" key={key}>{key}</button>
+        ))
     );
   }
 }
+
+export default Button;

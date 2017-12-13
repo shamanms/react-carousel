@@ -5,7 +5,7 @@ import "../node_modules/slick-carousel/slick/slick.css";
 import "../node_modules/slick-carousel/slick/slick-theme.css";
 
 
-export class Carousel extends React.Component {
+class Carousel extends React.Component {
 
   constructor(props) {
     super(props);
@@ -61,11 +61,13 @@ export class Carousel extends React.Component {
     };
 
     return (
-      <Slider {...settings}>
-        {this.state.images.map((image, key) => (
-          <div key={key}><img src={image} alt="" key={key} onClick={(e) => this.handleClick(e, key)} /></div>
-        ))}
-      </Slider>
+        <Slider {...settings}>
+          {this.state.images.map((image, key) => (
+            <div key={key}><img src={image} alt="" key={key} onClick={(e) => this.handleClick(e, key)} /></div>
+          ))}
+        </Slider>
     );
   }
 }
+
+export default Carousel;
