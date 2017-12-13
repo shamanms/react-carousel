@@ -6,21 +6,9 @@ import "../node_modules/slick-carousel/slick/slick-theme.css";
 
 
 class Carousel extends React.Component {
-
   constructor(props) {
     super(props);
-    this.state = {
-      images: [
-        "http://via.placeholder.com/500x300",
-        "http://via.placeholder.com/500x300",
-        "http://via.placeholder.com/500x300",
-        "http://via.placeholder.com/500x300",
-        "http://via.placeholder.com/500x300",
-        "http://via.placeholder.com/500x300",
-        "http://via.placeholder.com/500x300",
-        "http://via.placeholder.com/500x300"
-      ]
-    };
+    this.state = {};
 
     this.handleClick = this.handleClick.bind(this);
   }
@@ -62,7 +50,7 @@ class Carousel extends React.Component {
 
     return (
         <Slider {...settings}>
-          {this.state.images.map((image, key) => (
+          {this.props.current.map((image, key) => (
             <div key={key}><img src={image} alt="" key={key} onClick={(e) => this.handleClick(e, key)} /></div>
           ))}
         </Slider>
