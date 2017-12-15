@@ -51,7 +51,7 @@ class Carousel extends React.Component {
     return (
         <Slider {...settings}>
           {this.props.current.map((image, key) => (
-            <div key={key}><img src={image} alt="" key={key} onClick={(e) => this.handleClick(e, key)} /></div>
+            <button key={key}><img src={image} alt="" key={key} onClick={(e) => this.handleClick(e, image)} /></button>
           ))}
         </Slider>
     );
