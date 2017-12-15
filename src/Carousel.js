@@ -6,23 +6,6 @@ import './carousel.css';
 import "../node_modules/slick-carousel/slick/slick.css";
 import "../node_modules/slick-carousel/slick/slick-theme.css";
 
-const customStyles = {
-
-  overlay : {
-    backgroundColor   : 'rgba(0, 0, 0, 0.7)'
-  },
-  content : {
-    top                   : '50%',
-    left                  : '50%',
-    right                 : 'auto',
-    bottom                : 'auto',
-    marginRight           : '-50%',
-    transform             : 'translate(-50%, -50%)',
-    backgroundColor       : '#419be0',
-    border                : '0'
-  }
-};
-
 class Carousel extends React.Component {
   constructor(props) {
     super(props);
@@ -88,11 +71,12 @@ class Carousel extends React.Component {
         <Modal
           isOpen={this.state.modalIsOpen}
           onRequestClose={this.closeModal}
-          style={customStyles}
           contentLabel="Example Modal"
+          className="modal-content"
+          overlayClassName="modal-overlay"
           ariaHideApp={false}
         >
-          <div className="modal-content">
+          <div className="modal-inner">
             <button className="modal-close" onClick={this.closeModal}>
               <IconCancel />
             </button>
