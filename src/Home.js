@@ -6,8 +6,8 @@ const Home = () => (
     <nav>
       <ul>
         <li><Link to='/'>Home</Link></li>
-        <li><Link to='/carousel'>carousel</Link></li>
-        <li><Link to='/lightbox'>lightbox</Link></li>
+        <li><Link to='/carousel'>Carousel</Link></li>
+        <li><Link to='/lightbox'>LightBox</Link></li>
       </ul>
     </nav>
   </header>

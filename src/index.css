@@ -87,3 +87,15 @@ button.slick-slide {
 .modal-img {
   width: 100%;
 }
+
+.wrapper_lightbox button{
+  border: none;
+  outline: none;
+  padding: 0;
+  margin: 5px;
+  background-color: transparent;
+}
+
+.wrapper_lightbox img {
+  width: 100%
+}

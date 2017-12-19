@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import ScrollToTop from './ScrollToTop'
 import App from './App';
-import LightBox from './LightBox';
+import LightBoxWrapp from './LightBox';
 import Home from './Home';
 import registerServiceWorker from './registerServiceWorker';
 
@@ -12,7 +12,7 @@ const RoutApp = () => (
     <Switch>
       <Route exact path='/' component={Home}/>
       <Route path='/carousel' component={App}/>
-      <Route path='/lightbox' component={LightBox}/>
+      <Route path='/lightbox' component={LightBoxWrapp}/>
     </Switch>
   </main>
 )
