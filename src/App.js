@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom'
 import Carousel from './Carousel';
+// import LightBox from './LightBox';
 import './index.css';
 
 class App extends Component {
@@ -80,6 +82,7 @@ class App extends Component {
         <div className="wrapper">
           <Carousel current={this.state.currentCarousel}/>
         </div>
+        <Link to='/'>Back</Link>
       </div>
     );
   }
