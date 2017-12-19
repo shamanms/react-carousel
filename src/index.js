@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import ScrollToTop from './ScrollToTop'
 import App from './App';
 import LightBox from './LightBox';
 import Home from './Home';
@@ -19,7 +20,9 @@ const RoutApp = () => (
 const render = (App) => {
   ReactDOM.render(
     <BrowserRouter>
-      <RoutApp />
+      <ScrollToTop>
+        <RoutApp />
+      </ScrollToTop>
     </BrowserRouter>,
     document.getElementById('root')
   );
