@@ -8,6 +8,7 @@ const Home = () => (
         <li><Link to='/'>Home</Link></li>
         <li><Link to='/carousel'>Carousel</Link></li>
         <li><Link to='/lightbox'>LightBox</Link></li>
+        <li><Link to='/pictures'>Pictures</Link></li>
       </ul>
     </nav>
   </header>
