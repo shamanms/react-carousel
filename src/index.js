@@ -30,17 +30,17 @@ const initialState = {
     tech: ['https://placeimg.com/640/480/tech', 'https://placeimg.com/640/480/tech','https://placeimg.com/640/480/tech','https://placeimg.com/640/480/tech','https://placeimg.com/640/480/tech','https://placeimg.com/640/480/tech','https://placeimg.com/640/480/tech','https://placeimg.com/640/480/tech','https://placeimg.com/640/480/tech']
   },
   categories: ['nature', 'animals', 'architecture', 'tech'],
-  current: ["http://via.placeholder.com/640x480"],
+  currentCategory: {
+    name: 'default',
+    images: ["http://via.placeholder.com/640x480"],
+  } 
 }
 
 function theme(state = initialState, action) {
-  // console.log(state)  
-  // console.log(action)
-
   if (action.type === 'CHOOSE_IMG') {
     return {
       ...state,
-      current: action.payload
+      currentCategory: action.payload,
     }
   } 
   return state;
