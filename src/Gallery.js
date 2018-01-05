@@ -3,62 +3,9 @@ import { connect } from 'react-redux';
 import Slider from 'react-slick';
 import { Link } from 'react-router-dom';
 
+import { galleryActions } from './actions/gallery';
+
 class Pictures extends React.Component {
-
-  constructor(props) {
-    super(props);
-
-    this.prevImg = this.prevImg.bind(this);
-    this.nextImg = this.nextImg.bind(this);
-    this.selectImg = this.selectImg.bind(this);
-  }
-
-  prevImg() {
-    let prewCategoryInfo = {}
-
-    if (this.props.currentCategory.index !== 0 && this.props.currentCategory.index) {
-      prewCategoryInfo.index = this.props.currentCategory.index - 1;
-    } else {
-      prewCategoryInfo.index = this.props.categories.length - 1;
-    }
-
-    prewCategoryInfo.name = this.props.categories[prewCategoryInfo.index];
-
-    prewCategoryInfo.images = this.props.images[prewCategoryInfo.name]
-
-    console.log(prewCategoryInfo)
-
-    this.props.onSelectCategory(prewCategoryInfo);
-  }
-
-  nextImg() {
-    let nextCategoryInfo = {}
-
-    if (this.props.currentCategory.index === 0) {
-      nextCategoryInfo.index = this.props.currentCategory.index + 1;
-    } else if (!this.props.currentCategory.index || this.props.currentCategory.index === this.props.categories.length -1) {
-      this.props.currentCategory.index = 0;
-      nextCategoryInfo.index = this.props.currentCategory.index;
-    } else {
-      nextCategoryInfo.index = this.props.currentCategory.index + 1;
-    }
-    
-    nextCategoryInfo.name = this.props.categories[nextCategoryInfo.index];
-
-    nextCategoryInfo.images = this.props.images[nextCategoryInfo.name]
-
-    this.props.onSelectCategory(nextCategoryInfo);
-  }
-
-  selectImg(e, category, index){
-    let categoryInfo = {
-      name: category,
-      index: index,
-      images: this.props.images[category],
-    };
-    this.props.onSelectCategory(categoryInfo);
-
-  }
 
   render() {
     let settings = {
@@ -94,21 +41,21 @@ class Pictures extends React.Component {
       <div>
         <div className="wrapper">
           <div className="wrapper_btn">
-            <button onClick={this.prevImg} className="btn">prev</button>
-            <button className="btn">add</button>
-            <button className="btn">remove</button>            
-            <button onClick={this.nextImg} className="btn">next</button>
+            <button onClick={() => this.props.getCategory(this.props.currentCategory, this.props.categories, '-')} className="btn">prev</button>
+            <button onClick={() => this.props.addNewCategory(this.props.resourceCounter, this.props.resources)} className="btn" disabled={this.props.disableLoader}>add</button>
+            <button onClick={() => this.props.removeCategory(this.props.currentCategory, this.props.categories, this.props.images)} className="btn" disabled={this.props.removeDisabled} >remove</button> 
+            <button onClick={() => this.props.getCategory(this.props.currentCategory, this.props.categories, '+')} className="btn">next</button>
           </div>
           <div className="wrapper_btn">
             { this.props.categories.map((category, index) =>
-              <button onClick={(e) => this.selectImg(e, category, index)} className="btn" key={index}>{category}</button>
+              <button onClick={(e) => this.props.selectCategory(category)} className="btn" key={index}>{category}</button>
             )}
           </div>
         </div>
         
         <div className="wrapper">
           <Slider {...settings}>
-            { this.props.currentImg.map((image, index) =>
+            { this.props.images[this.props.currentCategory].map((image, index) =>
               <img key={index} src={image} alt=""/>
             )}
           </Slider>
@@ -120,19 +67,39 @@ class Pictures extends React.Component {
   }
 }
 
+const mapStateToProps = state => {
+  const {images, currentCategory, resourceCounter, resources, disableLoader} = state;
+
+  const categories = Object.keys(images);
+
+  let removeDisabled = false;
+  if (categories.length <= 1) {
+    removeDisabled = true;    
+  }
+
+  return {
+    images,
+    categories,
+    currentCategory,
+    resourceCounter, 
+    resources,
+    removeDisabled,
+    disableLoader,
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    selectCategory: (category) => dispatch(galleryActions.selectCategory(category)),
+    addNewCategory: (counter, resources) => dispatch(galleryActions.addNewCategory(counter, resources)),
+    getCategory: (category, categories, type) => dispatch(galleryActions.getCategory(category, categories, type)),
+    removeCategory: (category, categories, images) => dispatch(galleryActions.removeCategory(category, categories, images)),
+  }
+}
+
+
+
 export default connect(
-  state => ({
-    images: state.images,
-    categories: state.categories,
-    currentImg: state.currentCategory.images,
-    currentCategory: state.currentCategory
-  }),
-  dispatch => ({
-    onSelectCategory: (categoryInfo) => {
-      dispatch({type: 'CHOOSE_IMG', payload: categoryInfo})
-    },
-    onPrevCategory: (prewCategoryInfo) => {
-      dispatch({type: 'CHOOSE_IMG', payload: prewCategoryInfo})
-    }
-  })
+  mapStateToProps,
+  mapDispatchToProps
 )(Pictures);
