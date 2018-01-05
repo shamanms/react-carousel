@@ -41,10 +41,29 @@ class Pictures extends React.Component {
       <div>
         <div className="wrapper">
           <div className="wrapper_btn">
-            <button onClick={() => this.props.getCategory(this.props.currentCategory, this.props.categories, '-')} className="btn">prev</button>
-            <button onClick={() => this.props.addNewCategory(this.props.resourceCounter, this.props.resources)} className="btn" disabled={this.props.disableLoader}>add</button>
-            <button onClick={() => this.props.removeCategory(this.props.currentCategory, this.props.categories, this.props.images)} className="btn" disabled={this.props.removeDisabled} >remove</button> 
-            <button onClick={() => this.props.getCategory(this.props.currentCategory, this.props.categories, '+')} className="btn">next</button>
+            <button 
+              onClick={() => this.props.getCategory(this.props.currentCategory, this.props.categories, '-')}
+              className="btn"
+              disabled={this.props.removeDisabled}>
+              prev
+            </button>
+            <button 
+              onClick={() => this.props.addNewCategory(this.props.resourceCounter, this.props.resources)} 
+              className="btn" disabled={this.props.disableLoader}>
+              add
+            </button>
+            <button 
+              onClick={() => this.props.removeCategory(this.props.currentCategory, this.props.categories, this.props.images)} 
+              className="btn" 
+              disabled={this.props.removeDisabled} >
+              remove
+            </button> 
+            <button 
+              onClick={() => this.props.getCategory(this.props.currentCategory, this.props.categories, '+')} 
+              className="btn"
+              disabled={this.props.removeDisabled}>
+              next
+            </button>
           </div>
           <div className="wrapper_btn">
             { this.props.categories.map((category, index) =>
