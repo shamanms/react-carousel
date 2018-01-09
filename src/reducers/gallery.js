@@ -31,22 +31,22 @@ function theme(state = initialState, action) {
   } else if (action.type === 'ADD_IMAGE_SUCCESS') {
     const newImages = {
       ...state.images,
-      [action.payload[0]]: action.payload[1],
+      [action.payload.key]: action.payload.imgListForState,
     }
-    const newName = action.payload[0]
+    const newName = action.payload.key
     return {
       ...state,
       images: newImages,
       currentCategory: newName,
       imagesLoading: false,
-      resourceCounter: action.payload[2],
-      disableLoader: action.payload[3]
+      resourceCounter: action.payload.nextCounter,
+      disableLoader: action.payload.disableLoader
     }
   } else if (action.type === 'REMOVE_IMG') {
     return {
       ...state,
-      images: action.payload[1],
-      currentCategory: action.payload[0]
+      images: action.payload.images,
+      currentCategory: action.payload.setCategory
     }
   }
   return state;

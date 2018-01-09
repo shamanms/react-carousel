@@ -25,7 +25,14 @@ export function addNewCategory (counter, resources)  {
         let nextCounter = ++counter;
         const disableLoader = nextCounter === resources.length ? true : false;
 
-        dispatch({type: 'ADD_IMAGE_SUCCESS', payload: [key, imgListForState, nextCounter, disableLoader]})
+        const updatedData = {
+          key,
+          imgListForState,
+          nextCounter,
+          disableLoader
+        }
+
+        dispatch({type: 'ADD_IMAGE_SUCCESS', payload: updatedData})
       }
     )
   }
@@ -71,20 +78,24 @@ export function getCategory (category, categories, type) {
 export function removeCategory (category, categories, images) {
   return (dispatch) => {
     
-    let updatedData = [];
+    let setCategory;
 
     let categoryId = categories.findIndex((e) => {return e === category});
 
     if (categories.length -1 === categoryId) {
-      updatedData.push(categories[0]);
+      setCategory = categories[0];
     } else {
-      updatedData.push(categories[categoryId+1]);
+      setCategory = categories[categoryId+1];
     }
 
     delete images[category]
 
-    updatedData.push(images);
 
+    const updatedData = {
+      images,
+      setCategory
+    }
+    
     dispatch({type: 'REMOVE_IMG', payload: updatedData });
   }
 }
