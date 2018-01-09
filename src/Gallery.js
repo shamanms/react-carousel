@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Slider from 'react-slick';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import { galleryActions } from './actions/gallery';
 
@@ -9,18 +10,15 @@ class Pictures extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      removeDisabled: false,
+      removeDisabled: this.props.categories.length <= 1 ? true : false,
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    let x = nextProps.categories.length <= 1 ? true : false;
+    let disabler = nextProps.categories.length <= 1 ? true : false;
     this.setState({
-      removeDisabled: x
+      removeDisabled: disabler
     })
-    console.log(nextProps.categories.length)
-    console.log(this.state)
-    console.log(x)
   }
 
 
@@ -111,17 +109,23 @@ class Pictures extends React.Component {
   }
 }
 
+Pictures.propTypes = {
+  images: PropTypes.objectOf(PropTypes.array),
+  resources: PropTypes.array,
+  currentCategory: PropTypes.string,
+  imagesLoading: PropTypes.bool,
+  resourceCounter: PropTypes.number,
+  disableLoader: PropTypes.bool,
+}
 
+// Pictures.defaultProps = {
+//   currentCategory: 'default'
+// };
 
 const mapStateToProps = state => {
   const {images, currentCategory, resourceCounter, resources, disableLoader} = state;
 
   const categories = Object.keys(images);
-
-  // let removeDisabled = false;
-  // if (categories.length <= 1) {
-  //   removeDisabled = true;    
-  // }
 
   return {
     images,
