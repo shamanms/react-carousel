@@ -6,6 +6,23 @@ import { Link } from 'react-router-dom';
 import { galleryActions } from './actions/gallery';
 
 class Pictures extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      removeDisabled: false,
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    let x = nextProps.categories.length <= 1 ? true : false;
+    this.setState({
+      removeDisabled: x
+    })
+    console.log(nextProps.categories.length)
+    console.log(this.state)
+    console.log(x)
+  }
+
 
   render() {
     let settings = {
@@ -37,6 +54,7 @@ class Pictures extends React.Component {
         }
       }]
     };
+
     return (
       <div>
         <div className="wrapper">
@@ -44,30 +62,37 @@ class Pictures extends React.Component {
             <button 
               onClick={() => this.props.getCategory(this.props.currentCategory, this.props.categories, '-')}
               className="btn"
-              disabled={this.props.removeDisabled}>
-              prev
+              disabled={this.state.removeDisabled}>
+                prev
             </button>
             <button 
               onClick={() => this.props.addNewCategory(this.props.resourceCounter, this.props.resources)} 
-              className="btn" disabled={this.props.disableLoader}>
-              add
+              className="btn" 
+              disabled={this.props.disableLoader}>
+                add
             </button>
             <button 
               onClick={() => this.props.removeCategory(this.props.currentCategory, this.props.categories, this.props.images)} 
               className="btn" 
-              disabled={this.props.removeDisabled} >
-              remove
+              disabled={this.state.removeDisabled} >
+                remove
             </button> 
             <button 
               onClick={() => this.props.getCategory(this.props.currentCategory, this.props.categories, '+')} 
               className="btn"
-              disabled={this.props.removeDisabled}>
-              next
+              disabled={this.state.removeDisabled}>
+                next
             </button>
           </div>
           <div className="wrapper_btn">
             { this.props.categories.map((category, index) =>
-              <button onClick={(e) => this.props.selectCategory(category)} className="btn" key={index}>{category}</button>
+              <button onClick={(e) => this.props.selectCategory(category)} 
+                      className={ this.props.currentCategory === category
+                        ? "btn active"
+                        : "btn"} 
+                      key={index}>
+                        {category}
+              </button>
             )}
           </div>
         </div>
@@ -86,15 +111,17 @@ class Pictures extends React.Component {
   }
 }
 
+
+
 const mapStateToProps = state => {
   const {images, currentCategory, resourceCounter, resources, disableLoader} = state;
 
   const categories = Object.keys(images);
 
-  let removeDisabled = false;
-  if (categories.length <= 1) {
-    removeDisabled = true;    
-  }
+  // let removeDisabled = false;
+  // if (categories.length <= 1) {
+  //   removeDisabled = true;    
+  // }
 
   return {
     images,
@@ -102,7 +129,6 @@ const mapStateToProps = state => {
     currentCategory,
     resourceCounter, 
     resources,
-    removeDisabled,
     disableLoader,
   }
 }
