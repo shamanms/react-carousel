@@ -4,11 +4,11 @@ import thunk from 'redux-thunk';
 
 const initialState = {
   images: {
-    default: ["http://via.placeholder.com/640x480", "http://via.placeholder.com/640x480"],
-    nature: ['https://placeimg.com/640/480/nature','https://placeimg.com/640/480/nature', 'https://placeimg.com/640/480/nature', 'https://placeimg.com/640/480/nature', 'https://placeimg.com/640/480/nature', 'https://placeimg.com/640/480/nature', 'https://placeimg.com/640/480/nature', 'https://placeimg.com/640/480/nature', 'https://placeimg.com/640/480/nature'],
-    animals: ['http://placecorgi.com/640/480','https://placeimg.com/640/480/animals', 'http://placecorgi.com/640/480','https://placeimg.com/640/480/animals', 'http://placecorgi.com/640/480','https://placeimg.com/640/480/animals', 'http://placecorgi.com/640/480','https://placeimg.com/640/480/animals'],
-    architecture: ['https://placeimg.com/640/480/arch', 'https://placeimg.com/640/480/arch', 'https://placeimg.com/640/480/arch', 'https://placeimg.com/640/480/arch', 'https://placeimg.com/640/480/arch', 'https://placeimg.com/640/480/arch', 'https://placeimg.com/640/480/arch', 'https://placeimg.com/640/480/arch', 'https://placeimg.com/640/480/arch', 'https://placeimg.com/640/480/arch', 'https://placeimg.com/640/480/arch', 'https://placeimg.com/640/480/arch', 'https://placeimg.com/640/480/arch', 'https://placeimg.com/640/480/arch', 'https://placeimg.com/640/480/arch', 'https://placeimg.com/640/480/arch'],
-    tech: ['https://placeimg.com/640/480/tech', 'https://placeimg.com/640/480/tech','https://placeimg.com/640/480/tech','https://placeimg.com/640/480/tech','https://placeimg.com/640/480/tech','https://placeimg.com/640/480/tech','https://placeimg.com/640/480/tech','https://placeimg.com/640/480/tech','https://placeimg.com/640/480/tech']
+    default: ["http://via.placeholder.com/640x480", "http://via.placeholder.com/640x480", "http://via.placeholder.com/640x480", "http://via.placeholder.com/640x480", "http://via.placeholder.com/640x480", "http://via.placeholder.com/640x480"],
+    nature: ['https://placeimg.com/640/480/nature', 'https://placeimg.com/640/480/nature', 'https://placeimg.com/640/480/nature', 'https://placeimg.com/640/480/nature', 'https://placeimg.com/640/480/nature', 'https://placeimg.com/640/480/nature'],
+    animals: ['http://placecorgi.com/640/480','https://placeimg.com/640/480/animals', 'http://placecorgi.com/640/480','https://placeimg.com/640/480/animals', 'http://placecorgi.com/640/480','https://placeimg.com/640/480/animals'],
+    architecture: ['https://placeimg.com/640/480/arch', 'https://placeimg.com/640/480/arch', 'https://placeimg.com/640/480/arch', 'https://placeimg.com/640/480/arch', 'https://placeimg.com/640/480/arch', 'https://placeimg.com/640/480/arch'],
+    tech: ['https://placeimg.com/640/480/tech', 'https://placeimg.com/640/480/tech','https://placeimg.com/640/480/tech','https://placeimg.com/640/480/tech','https://placeimg.com/640/480/tech','https://placeimg.com/640/480/tech']
   },
   resources: ['https://5a2e6f220e07b70012083a6a.mockapi.io/img/reduxGalleryMountains','https://5a2e6f220e07b70012083a6a.mockapi.io/img/reduxGalery'],
   currentCategory: 'default',
