@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import { galleryActions } from './actions/gallery';
+import IconDog from './img/IconDog'
 
 class Pictures extends React.Component {
   constructor(props) {
@@ -103,6 +104,10 @@ class Pictures extends React.Component {
           </Slider>
         </div>
 
+        <div className={this.props.imagesLoading ? "visible preloader" : "unvisible preloader"} >
+          <IconDog />
+        </div>
+
         <Link to='/'>Back</Link>
       </div>
     )
@@ -123,7 +128,7 @@ Pictures.propTypes = {
 // };
 
 const mapStateToProps = state => {
-  const {images, currentCategory, resourceCounter, resources, disableLoader} = state;
+  const {images, currentCategory, resourceCounter, resources, disableLoader, imagesLoading} = state;
 
   const categories = Object.keys(images);
 
@@ -134,6 +139,7 @@ const mapStateToProps = state => {
     resourceCounter, 
     resources,
     disableLoader,
+    imagesLoading
   }
 }
 
