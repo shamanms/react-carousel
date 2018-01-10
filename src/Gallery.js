@@ -129,14 +129,16 @@ Pictures.propTypes = {
   disableLoader: PropTypes.bool,
 }
 
-// Pictures.defaultProps = {
-//   currentCategory: 'default'
-// };
-
 const mapStateToProps = state => {
   const {images, currentCategory, resourceCounter, resources, disableLoader, imagesLoading} = state;
 
-  const categories = Object.keys(images);
+  let categories = [];
+  
+  for (const key in images) {
+    if (images[key].length) {
+      categories.push(key);
+    }
+  }
 
   return {
     images,

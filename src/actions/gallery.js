@@ -88,8 +88,7 @@ export function removeCategory (category, categories, images) {
       setCategory = categories[categoryId+1];
     }
 
-    delete images[category]
-
+    images[category] = [];
 
     const updatedData = {
       images,
