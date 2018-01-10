@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Slider from 'react-slick';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import ImageLoader from 'react-load-image';
 
 import { galleryActions } from './actions/gallery';
 import IconDog from './img/IconDog'
@@ -21,7 +22,6 @@ class Pictures extends React.Component {
       removeDisabled: disabler
     })
   }
-
 
   render() {
     let settings = {
@@ -99,7 +99,13 @@ class Pictures extends React.Component {
         <div className="wrapper">
           <Slider {...settings}>
             { this.props.images[this.props.currentCategory].map((image, index) =>
-              <img key={index} src={image} alt=""/>
+              <div key={index}>
+                <ImageLoader key={index} src={image}>
+                  <img alt=""/>
+                  <div>Error!</div>
+                  <IconDog />
+                </ImageLoader>
+              </div>
             )}
           </Slider>
         </div>
