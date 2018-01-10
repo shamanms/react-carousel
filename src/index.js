@@ -7,7 +7,7 @@ import { Provider } from 'react-redux';
 import ScrollToTop from './ScrollToTop'
 import App from './App';
 import { RoutApp } from './Router'
-import { store } from './reducers/gallery'
+import { store } from './reducers/store'
 
 
 const render = (App) => {

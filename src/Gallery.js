@@ -130,7 +130,7 @@ Pictures.propTypes = {
 }
 
 const mapStateToProps = state => {
-  const {images, currentCategory, resourceCounter, resources, disableLoader, imagesLoading} = state;
+  const {images, currentCategory, resourceCounter, resources, disableLoader, imagesLoading} = state.theme;
 
   let categories = [];
   

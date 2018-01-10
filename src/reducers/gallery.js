@@ -1,7 +1,3 @@
-import { composeWithDevTools } from 'redux-devtools-extension';
-import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
-
 const initialState = {
   images: {
     default: ["http://via.placeholder.com/640x480", "http://via.placeholder.com/640x480", "http://via.placeholder.com/640x480", "http://via.placeholder.com/640x480", "http://via.placeholder.com/640x480", "http://via.placeholder.com/640x480"],
@@ -17,7 +13,7 @@ const initialState = {
   disableLoader: false,
 }
 
-function theme(state = initialState, action) {
+export default function theme(state = initialState, action) {
   if (action.type === 'CHOOSE_IMG') {
     return {
       ...state,
@@ -51,5 +47,3 @@ function theme(state = initialState, action) {
   }
   return state;
 }
-
-export const store = createStore(theme, composeWithDevTools(applyMiddleware(thunk)));
