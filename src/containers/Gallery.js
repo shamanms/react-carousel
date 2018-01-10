@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import ImageLoader from 'react-load-image';
 
-import { galleryActions } from './actions/gallery';
-import IconDog from './img/IconDog'
+import { galleryActions } from '../actions/gallery';
+import IconDog from '../img/IconDog'
 
 class Pictures extends React.Component {
   constructor(props) {

@@ -4,8 +4,8 @@ import { BrowserRouter } from 'react-router-dom';
 import registerServiceWorker from './registerServiceWorker';
 import { Provider } from 'react-redux';
 
-import ScrollToTop from './ScrollToTop'
-import App from './App';
+import ScrollToTop from './containers/ScrollToTop'
+import App from './containers/App';
 import { RoutApp } from './Router'
 import { store } from './reducers/store'
 

@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import Carousel from './Carousel';
-// import LightBox from './LightBox';
-import './index.css';
+import Carousel from '../components/Carousel';
+import '../css/index.css';
 
 class App extends Component {
   constructor(props) {

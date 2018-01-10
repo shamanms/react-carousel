@@ -2,10 +2,11 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 
-import App from './App';
-import LightBoxWrapp from './LightBox';
-import Home from './Home';
-import Pictures from './Gallery'
+import App from './containers/App';
+import LightBoxWrapp from './containers/LightBox';
+import Home from './containers/Home';
+import Pictures from './containers/Gallery'
+import AsynchronousFormValidation from './containers/FormContainer'
 
 export const RoutApp = () => (
   <main>
@@ -14,6 +15,7 @@ export const RoutApp = () => (
       <Route path='/carousel' component={App}/>
       <Route path='/lightbox' component={LightBoxWrapp}/>
       <Route path='/pictures' component={Pictures}/>
+      <Route path='/form' component={AsynchronousFormValidation}/>
     </Switch>
   </main>
 )
