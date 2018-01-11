@@ -7,6 +7,7 @@ import LightBoxWrapp from './containers/LightBox';
 import Home from './containers/Home';
 import Pictures from './containers/Gallery'
 import SimpleForm from './containers/FormContainer'
+import Users from './components/Users'
 
 export const RoutApp = () => (
   <main>
@@ -16,6 +17,7 @@ export const RoutApp = () => (
       <Route path='/lightbox' component={LightBoxWrapp}/>
       <Route path='/pictures' component={Pictures}/>
       <Route path='/form' component={SimpleForm}/>
+      <Route path='/users' component={Users}/>
     </Switch>
   </main>
 )
