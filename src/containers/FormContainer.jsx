@@ -1,7 +1,11 @@
 import React from 'react';
 import { Form, Text, TextArea } from 'react-form';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+
 import { formActions } from '../actions/form';
+
+import '../css/form.css';
 
 class SimpleForm extends React.Component {
   constructor(props) {
@@ -71,20 +75,21 @@ class SimpleForm extends React.Component {
         dontValidateOnMount={true}
         onSubmit={(values) => this.props.submitToState(values)}>
         { formApi => (
-          <form onSubmit={formApi.submitForm} id="form1" className="mb-4">
+          <form onSubmit={formApi.submitForm} id="form1" className="form">
             <div className="form-group">
-              <label htmlFor="name">Name</label>
+              <label htmlFor="name" className="label">Name</label>
               <Text field="name" id="name" />
             </div>
             <div className="form-group">
-              <label htmlFor="email">Email</label>
+              <label htmlFor="email" className="label">Email</label>
               <Text field="email" id="email" />
             </div>
             <div className="form-group">
-              <label htmlFor="message">Message</label>
+              <label htmlFor="message" className="label">Message</label>
               <TextArea field="message" id="message" />
             </div>
             <button type="submit" className="btn btn-primary" disabled={this.state.submitState}>Submit</button>
+            <Link to='/'>Back</Link>
           </form>
         )}
       </Form>
