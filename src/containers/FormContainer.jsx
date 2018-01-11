@@ -1,57 +1,113 @@
 import React from 'react';
-import { Form, Text } from 'react-form';
+import { Form, Text, TextArea } from 'react-form';
+import { connect } from 'react-redux';
+import { formActions } from '../actions/form';
 
-const errorValidator = (values) => {
-  return {
-    username: !values.username || values.username.trim() === '' ? 'Username is a required field' : null
+class SimpleForm extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      submitState: true,
+    };
+
+    this.errorValidator = this.errorValidator.bind(this);   
+    this.successValidator = this.successValidator.bind(this);   
+    this.submitEnabler = this.submitEnabler.bind(this);   
+  }
+
+  errorValidator = (values) => {
+    return {
+      name: !values.name || values.name.trim() === '' 
+        ? document.querySelector('#name').classList.add('error') 
+        : document.querySelector('#name').classList.remove('error'),
+      email: !values.email || values.email.trim() === '' 
+        ? document.querySelector('#email').classList.add('error') 
+        : document.querySelector('#email').classList.remove('error'),
+      message: !values.message || values.message.trim() === '' 
+      ? document.querySelector('#message').classList.add('error') 
+      : document.querySelector('#message').classList.remove('error'),
+    };
   };
-};
+  
+  successValidator = (values) => { 
+    return {
+      name: values.name && values.name.match( /\D/ ) 
+        ? this.submitEnabler(values) 
+        : document.querySelector('#name').classList.add('error'),
 
-const successValidator = (values, errors) => {
-  return {
-    username: !errors.username ? 'Awesome! your username is good to go!' : null
+      email: values.email && values.email.match( /^[\w!#$%&'*+/=?^`{|}~-]+(\.[\w!#$%&'*+/=?^`{|}~-]+)*@(([\w-]+\.)+[A-Za-z]{2,6}|\[\d{1,3}(\.\d{1,3}){3}\])$/ ) 
+        ? this.submitEnabler(values) 
+        : document.querySelector('#email').classList.add('error'),
+    };
   };
-};
 
-const doesUsernameExist = username => new Promise( ( resolve, reject ) => setTimeout(() => {
-  // Simulate username check
-  if (['joe', 'tanner', 'billy', 'bob'].includes(username)) {
-    resolve( { error: 'That username is taken', success: null } );
-  }
-  // Simulate request faulure
-  if ( username === 'reject' ) {
-    reject('Failure while making call to validate username does not exist');
-  }
-  // Sumulate username success check
-  resolve({});
-}, 2000));
+  submitEnabler = (values) => {
+    let truthyName;
+    let truthyEmail;
+    if (values.name && values.email) {
+      truthyName = values.name.match( /^\D/ );
+      truthyEmail = values.email.match( /^[\w!#$%&'*+/=?^`{|}~-]+(\.[\w!#$%&'*+/=?^`{|}~-]+)*@(([\w-]+\.)+[A-Za-z]{2,6}|\[\d{1,3}(\.\d{1,3}){3}\])$/ );
+    } else {
+      return
+    }
 
-const asyncValidators = {
-  username: async ( username ) => {
-    const validations = await doesUsernameExist( username );
-    return validations;
+    if (truthyName && truthyEmail) {
+      this.setState({
+        submitState: false,
+      });
+    } else {
+      this.setState({
+        submitState: true,
+      });
+    }
   }
-};
 
-class AsynchronousFormValidation extends React.Component {
-  render() {
+  render () {
     return (
-      <div>
-        <Form
-          validateError={errorValidator}
-          validateSuccess={successValidator}
-          asyncValidators={asyncValidators}>
-          { formApi => (
-            <form onSubmit={formApi.submitForm} id="form6">
-              <label htmlFor="username">Username</label>
-              <Text field="username" id="username" />
-              <button type="submit" className="mb-4 btn btn-primary">Submit</button>
-            </form>
-          )}
-        </Form>
-      </div>
+      <Form
+        validateSuccess={this.successValidator}
+        validateError={this.errorValidator}
+        dontValidateOnMount={true}
+        onSubmit={(values) => this.props.submitToState(values)}>
+        { formApi => (
+          <form onSubmit={formApi.submitForm} id="form1" className="mb-4">
+            <div className="form-group">
+              <label htmlFor="name">Name</label>
+              <Text field="name" id="name" />
+            </div>
+            <div className="form-group">
+              <label htmlFor="email">Email</label>
+              <Text field="email" id="email" />
+            </div>
+            <div className="form-group">
+              <label htmlFor="message">Message</label>
+              <TextArea field="message" id="message" />
+            </div>
+            <button type="submit" className="btn btn-primary" disabled={this.state.submitState}>Submit</button>
+          </form>
+        )}
+      </Form>
     );
   }
 }
 
-export default AsynchronousFormValidation;
+const mapStateToProps = state => {
+const submitState = state.form.submitState
+
+  return {
+    submitState
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    submitToState: (values) => dispatch(formActions.submitToState(values)),
+  }
+}
+
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SimpleForm);

@@ -116,3 +116,7 @@ button.slick-slide {
 .unvisible {
   display: none;
 }
+
+.error {
+  background-color: rgba(225, 0, 0, .35)
+}
