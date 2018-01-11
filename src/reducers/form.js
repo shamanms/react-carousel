@@ -1,5 +1,8 @@
 const initialState = {
-  users: {}
+  users: {
+    a: {name: "a", email: "shamanovms@gmai.com", message: "aaaaaa"},
+    b: {name: "b", email: "shamanovms@gmai.com", message: "bbbbbb"}
+  }
 }
 
 export default function form(state = initialState, action) {
