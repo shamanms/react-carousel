@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import '../css/userCards.css'
 
@@ -24,6 +25,10 @@ export class Users extends React.Component {
   }
 }
 
+Users.propTypes = {
+  userList: PropTypes.array,
+}
+
 const mapStateToProps = state => {
   const userObj = state.form.users;
   let userList = [];
@@ -32,7 +37,6 @@ const mapStateToProps = state => {
     userList.push(userObj[key])
   }
 
-  console.log(userList)
     return {
       userList
     }
