@@ -1,4 +1,4 @@
-.error {
+.error input,  .error textarea{
   background-color: rgba(225, 0, 0, .35)
 }
 
