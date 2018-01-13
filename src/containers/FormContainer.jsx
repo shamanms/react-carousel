@@ -11,61 +11,35 @@ class SimpleForm extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      submitState: true,
-    };
-
     this.errorValidator = this.errorValidator.bind(this);   
-    this.successValidator = this.successValidator.bind(this);   
-    this.submitEnabler = this.submitEnabler.bind(this);   
+    this.successValidator = this.successValidator.bind(this); 
   }
 
   errorValidator = (values) => {
     return {
       name: !values.name || values.name.trim() === '' 
-        ? document.querySelector('#name').classList.add('error') 
-        : document.querySelector('#name').classList.remove('error'),
+        ? 'should not be empty' 
+        : null,
       email: !values.email || values.email.trim() === '' 
-        ? document.querySelector('#email').classList.add('error') 
-        : document.querySelector('#email').classList.remove('error'),
+        ? 'should not be empty' 
+        : null,
       message: !values.message || values.message.trim() === '' 
-      ? document.querySelector('#message').classList.add('error') 
-      : document.querySelector('#message').classList.remove('error'),
+        ? 'should not be empty' 
+          : null,
     };
   };
   
   successValidator = (values) => { 
     return {
       name: values.name && values.name.match( /\D/ ) 
-        ? this.submitEnabler(values) 
-        : document.querySelector('#name').classList.add('error'),
+        ? null 
+        : 'should contain only letters',
 
       email: values.email && values.email.match( /^[\w!#$%&'*+/=?^`{|}~-]+(\.[\w!#$%&'*+/=?^`{|}~-]+)*@(([\w-]+\.)+[A-Za-z]{2,6}|\[\d{1,3}(\.\d{1,3}){3}\])$/ ) 
-        ? this.submitEnabler(values) 
-        : document.querySelector('#email').classList.add('error'),
+        ? null
+        : 'enter valid email',
     };
   };
-
-  submitEnabler = (values) => {
-    let truthyName;
-    let truthyEmail;
-    if (values.name && values.email) {
-      truthyName = values.name.match( /^\D/ );
-      truthyEmail = values.email.match( /^[\w!#$%&'*+/=?^`{|}~-]+(\.[\w!#$%&'*+/=?^`{|}~-]+)*@(([\w-]+\.)+[A-Za-z]{2,6}|\[\d{1,3}(\.\d{1,3}){3}\])$/ );
-    } else {
-      return
-    }
-
-    if (truthyName && truthyEmail) {
-      this.setState({
-        submitState: false,
-      });
-    } else {
-      this.setState({
-        submitState: true,
-      });
-    }
-  }
 
   render () {
     return (
@@ -73,22 +47,40 @@ class SimpleForm extends React.Component {
         validateSuccess={this.successValidator}
         validateError={this.errorValidator}
         dontValidateOnMount={true}
-        onSubmit={(values) => this.props.submitToState(values)}>
+        onSubmit={(values) => this.props.submitToState(values)}
+      >
         { formApi => (
           <form onSubmit={formApi.submitForm} id="form1" className="form">
-            <div className="form-group">
+            <div className={
+              formApi.errors.name || formApi.successes.name
+                ? "form-group error"
+                : "form-group"
+            }>
               <label htmlFor="name" className="label">Name</label>
+              {formApi.errors.name ? <span> {formApi.errors.name} </span> : false}
+              {formApi.successes.name ? <span> {formApi.successes.name} </span> : false}
               <Text field="name" id="name" />
             </div>
-            <div className="form-group">
+            <div className={
+              formApi.errors.email || formApi.successes.email
+                ? "form-group error"
+                : "form-group"
+            }>
               <label htmlFor="email" className="label">Email</label>
+              {formApi.errors.email ? <span> {formApi.errors.email} </span> : false}
+              {formApi.successes.email ? <span> {formApi.successes.email} </span> : false}
               <Text field="email" id="email" />
             </div>
-            <div className="form-group">
+            <div className={
+              formApi.errors.message
+                ? "form-group error"
+                : "form-group"
+            }>
               <label htmlFor="message" className="label">Message</label>
+              {formApi.errors.message ? <span> {formApi.errors.message} </span> : false}
               <TextArea field="message" id="message" />
             </div>
-            <button type="submit" className="btn btn-primary" disabled={this.state.submitState}>Submit</button>
+            <button type="submit" className="btn btn-primary">Submit</button>
             <Link to='/'>Back</Link>
           </form>
         )}

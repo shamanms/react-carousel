@@ -1,5 +1,12 @@
-.error {
+.error input,
+.error textarea {
   background-color: rgba(225, 0, 0, .35)
+}
+
+.error span {
+  color: rgba(225, 0, 0, .35);
+  display: block;
+  margin: 5px 0;
 }
 
 .form {
