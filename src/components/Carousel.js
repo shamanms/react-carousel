@@ -1,10 +1,10 @@
 import React from 'react';
 import Slider from 'react-slick';
 import Modal from 'react-modal';
-import IconCancel from './img/IconCancel'
-import './carousel.css';
-import "../node_modules/slick-carousel/slick/slick.css";
-import "../node_modules/slick-carousel/slick/slick-theme.css";
+import IconCancel from '../img/IconCancel'
+import '../css/carousel.css';
+import "../../node_modules/slick-carousel/slick/slick.css";
+import "../../node_modules/slick-carousel/slick/slick-theme.css";
 
 class Carousel extends React.Component {
   constructor(props) {

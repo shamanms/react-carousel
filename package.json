@@ -3,14 +3,21 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "react-form": "^2.15.2",
     "react-images": "^0.5.13",
+    "react-load-image": "^0.1.6",
     "react-modal": "^3.1.8",
+    "react-redux": "^5.0.6",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.0.17",
     "react-slick": "^0.15.4",
+    "redux": "3.7.2",
+    "redux-devtools-extension": "^2.13.2",
+    "redux-thunk": "^2.2.0",
     "slick-carousel": "^1.8.1"
   },
   "scripts": {

@@ -27,6 +27,15 @@
   text-shadow: 1px 0px 2px rgba(0, 0, 0, 1);
 }
 
+.btn[disabled] {
+  opacity: .8;
+}
+
+.active {
+  opacity: .8;
+  pointer-events: none;
+}
+
 .slick-slide img {
   margin: 0 auto;
   width: 100%;
