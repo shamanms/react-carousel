@@ -11,62 +11,35 @@ class SimpleForm extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      submitState: true,
-      errors: {
-        name: false,
-        email: false,
-        message: false,
-      }
-    };
-
     this.errorValidator = this.errorValidator.bind(this);   
-    this.successValidator = this.successValidator.bind(this);   
-    this.errorHandler = this.errorHandler.bind(this);
+    this.successValidator = this.successValidator.bind(this); 
   }
 
   errorValidator = (values) => {
     return {
-      name: values.name && values.name && values.name.match( /\D/ )  
-        ? true
-        : false,
-      email: values.email && values.email.match( /^[\w!#$%&'*+/=?^`{|}~-]+(\.[\w!#$%&'*+/=?^`{|}~-]+)*@(([\w-]+\.)+[A-Za-z]{2,6}|\[\d{1,3}(\.\d{1,3}){3}\])$/ )
-        ? true
-        : false,
-      message: values.message 
-        ? true
-        : false,
+      name: !values.name || values.name.trim() === '' 
+        ? 'should not be empty' 
+        : null,
+      email: !values.email || values.email.trim() === '' 
+        ? 'should not be empty' 
+        : null,
+      message: !values.message || values.message.trim() === '' 
+        ? 'should not be empty' 
+          : null,
     };
   };
   
-  successValidator = (values, errors) => { 
+  successValidator = (values) => { 
     return {
-      name: this.errorHandler(values, errors),
-      email: this.errorHandler(values, errors),
-      message: this.errorHandler(values, errors),
+      name: values.name && values.name.match( /\D/ ) 
+        ? null 
+        : 'should contain only letters',
+
+      email: values.email && values.email.match( /^[\w!#$%&'*+/=?^`{|}~-]+(\.[\w!#$%&'*+/=?^`{|}~-]+)*@(([\w-]+\.)+[A-Za-z]{2,6}|\[\d{1,3}(\.\d{1,3}){3}\])$/ ) 
+        ? null
+        : 'enter valid email',
     };
   };
-
-  errorHandler = (val, err) => {
-    this.setState({
-      errors: {
-        name: err.name,
-        email: err.email,
-        message: err.message,
-      }
-    })
-
-    if (err.name && err.email && err.message) {
-      this.setState({
-        submitState: false,
-      });
-    } else {
-      this.setState({
-        submitState: true,
-      });
-    }
-
-  }
 
   render () {
     return (
@@ -74,22 +47,40 @@ class SimpleForm extends React.Component {
         validateSuccess={this.successValidator}
         validateError={this.errorValidator}
         dontValidateOnMount={true}
-        onSubmit={values => this.props.submitToState({values})}>
+        onSubmit={(values) => this.props.submitToState(values)}
+      >
         { formApi => (
           <form onSubmit={formApi.submitForm} id="form1" className="form">
-            <div className={this.state.errors.name ? 'form-group success' : 'form-group error'}>
+            <div className={
+              formApi.errors.name || formApi.successes.name
+                ? "form-group error"
+                : "form-group"
+            }>
               <label htmlFor="name" className="label">Name</label>
-              <Text field="name" id="name"/>
+              {formApi.errors.name ? <span> {formApi.errors.name} </span> : false}
+              {formApi.successes.name ? <span> {formApi.successes.name} </span> : false}
+              <Text field="name" id="name" />
             </div>
-            <div className={this.state.errors.email ? 'form-group success' : 'form-group error'}>
+            <div className={
+              formApi.errors.email || formApi.successes.email
+                ? "form-group error"
+                : "form-group"
+            }>
               <label htmlFor="email" className="label">Email</label>
-              <Text field="email" id="email"/>
+              {formApi.errors.email ? <span> {formApi.errors.email} </span> : false}
+              {formApi.successes.email ? <span> {formApi.successes.email} </span> : false}
+              <Text field="email" id="email" />
             </div>
-            <div className={this.state.errors.message ? 'success form-group' : 'error form-group'}>
+            <div className={
+              formApi.errors.message
+                ? "form-group error"
+                : "form-group"
+            }>
               <label htmlFor="message" className="label">Message</label>
-              <TextArea field="message" id="message"/>
+              {formApi.errors.message ? <span> {formApi.errors.message} </span> : false}
+              <TextArea field="message" id="message" />
             </div>
-            <button type="submit" className="btn btn-primary" disabled={this.state.submitState}>Submit</button>
+            <button type="submit" className="btn btn-primary">Submit</button>
             <Link to='/'>Back</Link>
           </form>
         )}
@@ -99,9 +90,10 @@ class SimpleForm extends React.Component {
 }
 
 const mapStateToProps = state => {
+const submitState = state.form.submitState
 
   return {
-    state
+    submitState
   }
 }
 
