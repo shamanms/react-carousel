@@ -33,7 +33,7 @@ class SimpleForm extends React.Component {
     return {
       name: values.name && values.name.match( /\D/ ) 
         ? null 
-        : 'should contain only letters',
+        : 'should contain letters',
 
       email: values.email && values.email.match( /^[\w!#$%&'*+/=?^`{|}~-]+(\.[\w!#$%&'*+/=?^`{|}~-]+)*@(([\w-]+\.)+[A-Za-z]{2,6}|\[\d{1,3}(\.\d{1,3}){3}\])$/ ) 
         ? null
