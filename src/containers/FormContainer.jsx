@@ -41,13 +41,18 @@ class SimpleForm extends React.Component {
     };
   };
 
+  submiterToState = (values, formApi) => {
+    this.props.submitToState(values);
+    formApi.resetAll();
+  }
+
   render () {
     return (
       <Form
         validateSuccess={this.successValidator}
         validateError={this.errorValidator}
         dontValidateOnMount={true}
-        onSubmit={(values) => this.props.submitToState(values)}
+        onSubmit={(values, getApi, formApi) => this.submiterToState(values, formApi)}
       >
         { formApi => (
           <form onSubmit={formApi.submitForm} id="form1" className="form">
