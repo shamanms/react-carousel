@@ -15,6 +15,15 @@ export default function form(state = initialState, action) {
       ...state,
       users: newUser,
     } 
-  } 
+  } else if (action.type === 'REMOVE_USER') {
+    const newStateUsers = {
+      ...state.users,
+      [action.payload]: {},
+    }
+    return {
+      ...state,
+      users: newStateUsers,
+    }
+  }
   return state;
 }

@@ -32,10 +32,9 @@
 
 .card-menu {
   position: absolute;
-  right: -50%;
+  right: 0;
   top: 0;
-  box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.5);
-  background: #fff;
+  width: 45px;
 }
 
 .card-menu ul {
@@ -45,11 +44,24 @@
 }
 
 .card-menu li {
-  display: block;
-  width: 100px;
+  display: inline-block;
+  width: 20px;
   height: 20px;
-  padding: 5px;
-  border-bottom: 1px solid rgba(0,0,0,0.5);
+}
+.card-menu button {
+  background: transparent;
+  border: 0;
+  outline: none;
+  padding: 3px;
+  margin: 0;
+}
+
+.card-menu button:hover {
+  box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.5);
+}
+
+.card-menu button:hover svg {
+  fill: rgb(65,155,224);
 }
 
 .shown {
