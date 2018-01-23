@@ -28,12 +28,11 @@ export class Users extends React.Component {
   }
 
   cardMenu = (e, index, name) => {
-    e.preventDefault()
     this.setState({
-      menu: this.state.menu ? this.state.menu : !this.state.menu,
+      menu: this.state.selectedCard.id === index ? false : true,
       selectedCard: {
-        id: index,
-        name: name
+        id: this.state.selectedCard.id === index ? null : index,
+        name: this.state.selectedCard.name === name ? null : name,
       }
     })
   }
